@@ -1,6 +1,8 @@
 # megamealplanner-prototype
 Early attempt at an ASP .NET based site using databases. Tracks meals, ingredients, calories etc...
 
+Credit goes to Tiffanie Juracka for creating the graphics.
+
 You'll need to install SQL express on your machine, or point the connection strings to another database server. Two databses are used: aspnetdb and weightloss_website.
 
 To get this working:
