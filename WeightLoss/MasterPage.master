@@ -1,0 +1,88 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" Inherits="MasterPage" CodeBehind="MasterPage.master.cs" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>Weight loss website</title>
+    <script src='<%=VirtualPathUtility.ToAbsolute("~/Scripts/modernizr-2.6.1.min.js")%>' type="text/javascript"></script>
+    <script src='<%=VirtualPathUtility.ToAbsolute("~/Scripts/jquery-2.0.3.min.js")%>' type="text/javascript"></script>
+    <script src='<%=VirtualPathUtility.ToAbsolute("~/Scripts/lean-slider.js")%>' type="text/javascript"></script>
+    <link href="StyleSheet.css" rel="stylesheet" />
+    <link href="lean-slider.css" rel="stylesheet" />
+    <link href="sample-styles.css" rel="stylesheet" />
+</head>
+<body>
+
+    <form id="form1" runat="server" defaultbutton="btnDisableEnter">
+        <asp:Image CssClass="TopBar" ImageUrl="~/Images/top.png" runat="server" Width="100%" Height="78px" />
+        <asp:Image CssClass="Logo" ImageUrl="~/Images/logo.png" runat="server" />
+
+        <asp:ImageButton ImageUrl="~/Images/home1.png" ID="imgBtnHome" CssClass="TopButton, TopButton_Home" PostBackUrl="~/Default.aspx" runat="server" />
+        <asp:ImageButton ImageUrl="~/Images/meals1.png" ID="imgBtnMeals" CssClass="TopButton, TopButton_Meals" PostBackUrl="~/Meals.aspx" runat="server" />
+        <asp:ImageButton ImageUrl="~/Images/news1.png" ID="imgBtnNews" CssClass="TopButton, TopButton_News" PostBackUrl="~/News.aspx" runat="server" />
+        <asp:ImageButton ImageUrl="~/Images/faq1.png" ID="imgBtnFAQ" CssClass="TopButton, TopButton_FAQ" PostBackUrl="~/FAQ.aspx" runat="server" />
+        <asp:ImageButton ImageUrl="~/Images/contact1.png" ID="imgBtnContactUs" CssClass="TopButton, TopButton_ContactUs" PostBackUrl="~/ContactUs.aspx" runat="server" />
+
+        <div class="BigBox Rounded">
+            <div class="slider-wrapper ImageSlideShow Rounded ">
+                <div id="slider">
+                    <div class="slide1">
+                        <asp:Image runat="server" ImageUrl="~/Images/slide1.png" CssClass="RoundedImage" AlternateText="slide1" />
+                    </div>
+                    <div class="slide2">
+                        <asp:Image runat="server" ImageUrl="~/Images/slide2.png" CssClass="RoundedImage" AlternateText="slide2" />
+                    </div>
+                    <div class="slide3">
+                        <asp:Image runat="server" ImageUrl="~/Images/slide3.png" CssClass="RoundedImage" AlternateText="slide3" />
+                    </div>
+                </div>
+                <div id="slider-direction-nav" style="z-index:2"></div>
+                <div id="slider-control-nav"></div>
+            </div>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    var slider = $('#slider').leanSlider({
+                        directionNav: '#slider-direction-nav',
+                        controlNav: '#slider-control-nav',
+                        pauseTime: 12000
+                    });
+                });
+            </script>
+            <asp:Panel runat="server" ID="pnlLogin" CssClass="LoginArea Rounded" BorderColor="Black">
+                <asp:LoginView ID="LoginView_Master" runat="server">
+                    <AnonymousTemplate>
+                        <asp:Login ID="loginCtl" runat="server"
+                            Height="194px" Width="268px"
+                            FailureText="Invalid username/password"
+                            OnLoggedIn="loginCtl_LoggedIn">
+                            <LayoutTemplate>
+                                <div style="position: absolute; left: 30px; top: 20px;">
+                                    Login<br />
+                                    <asp:TextBox ID="Username" runat="server" /><br />
+                                    Password<br />
+                                    <asp:TextBox ID="Password" runat="server" TextMode="Password" /><br />
+                                    <asp:CheckBox ID="RememberMe" Text="Remember Me" runat="server" /><br />
+                                    <asp:Label ID="FailureText" runat="server" ForeColor="#ffdcd8cd" /><br />
+                                    <asp:ImageButton ID="imgBtnLogin" CommandName="Login" ImageUrl="~/Images/login1.png" runat="server" />&nbsp
+                                    <asp:ImageButton ID="imgBtnSignUp" ImageUrl="~/Images/signup1.png" runat="server" PostBackUrl="SignUp.aspx" /><br />
+                                    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<asp:LinkButton Font-Names="Arial" Font-Size="Small" ForeColor="#ffdfdcca" runat="server" PostBackUrl="~/ForgotPassword.aspx">Forgot password?</asp:LinkButton>
+                                </div>
+                            </LayoutTemplate>
+                        </asp:Login>
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        <asp:Label runat="server" ID="lblLVStatus" /><br />
+                        <asp:Button runat="server" ID="btnSignOut" Text="Sign out" OnClick="btnSignOut_Click" />
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </asp:Panel>
+            <div class="MainPage Rounded" style="overflow-x: auto; overflow-y: auto; padding-bottom: 10px;">
+                <asp:ContentPlaceHolder ID="contentMain" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </div>
+        <asp:Button ID="btnDisableEnter" runat="server" Text="" OnClientClick="return false;" Style="display: none;" />
+    </form>
+</body>
+</html>

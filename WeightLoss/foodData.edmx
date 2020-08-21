@@ -1,0 +1,363 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="foodModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="foodModelStoreContainer">
+    <EntitySet Name="Ingredients" EntityType="foodModel.Store.Ingredients" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Ingredients_In_Meals" EntityType="foodModel.Store.Ingredients_In_Meals" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="MealPlanLists" EntityType="foodModel.Store.MealPlanLists" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Meals" EntityType="foodModel.Store.Meals" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="foodModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Ingredients_In_Meals_Ingredients" Association="foodModel.Store.FK_Ingredients_In_Meals_Ingredients">
+      <End Role="Ingredients" EntitySet="Ingredients" />
+      <End Role="Ingredients_In_Meals" EntitySet="Ingredients_In_Meals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Meals_Ingredients_In_Meals" Association="foodModel.Store.FK_Meals_Ingredients_In_Meals">
+      <End Role="Meals" EntitySet="Meals" />
+      <End Role="Ingredients_In_Meals" EntitySet="Ingredients_In_Meals" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_MealPlanList" Association="foodModel.Store.FK_Users_MealPlanList">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="MealPlanList" EntitySet="MealPlanLists" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Users_Meals" Association="foodModel.Store.FK_Users_Meals">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Meals" EntitySet="Meals" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Ingredients">
+    <Key>
+      <PropertyRef Name="IngredientId" />
+    </Key>
+    <Property Name="IngredientId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Quantity_Nbr" Type="decimal" Nullable="false" Precision="18" Scale="1" />
+    <Property Name="Quantity_Measurement" Type="varchar" Nullable="false" MaxLength="20" />
+    <Property Name="Calories" Type="smallint" Nullable="true" />
+    <Property Name="Category" Type="varchar" Nullable="true" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="Ingredients_In_Meals">
+    <Key>
+      <PropertyRef Name="InstanceId" />
+    </Key>
+    <Property Name="InstanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MealId" Type="int" Nullable="false" />
+    <Property Name="IngredientId" Type="int" Nullable="false" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MealPlanLists">
+    <Key>
+      <PropertyRef Name="InstanceId" />
+    </Key>
+    <Property Name="InstanceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="MealId" Type="int" Nullable="false" />
+    <Property Name="MealDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Meals">
+    <Key>
+      <PropertyRef Name="MealId" />
+    </Key>
+    <Property Name="MealId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="256" />
+    <Property Name="UserId" Type="int" Nullable="true" />
+    <Property Name="Cuisine" Type="varchar" Nullable="true" MaxLength="30" />
+    <Property Name="Breakfast" Type="bit" Nullable="false" />
+    <Property Name="Lunch" Type="bit" Nullable="false" />
+    <Property Name="Dinner" Type="bit" Nullable="false" />
+    <Property Name="Snack" Type="bit" Nullable="false" />
+    <Property Name="Rating" Type="tinyint" Nullable="true" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" Nullable="false" MaxLength="32" />
+    <Property Name="LastLogin" Type="datetime" Nullable="true" />
+    <Property Name="DateJoined" Type="datetime" Nullable="false" />
+    <Property Name="FirstName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="LastName" Type="nvarchar" Nullable="true" MaxLength="50" />
+    <Property Name="Email" Type="nvarchar" Nullable="true" MaxLength="100" />
+    <Property Name="DOB" Type="datetime" Nullable="true" />
+  </EntityType>
+  <Association Name="FK_Ingredients_In_Meals_Ingredients">
+    <End Role="Ingredients" Type="foodModel.Store.Ingredients" Multiplicity="1" />
+    <End Role="Ingredients_In_Meals" Type="foodModel.Store.Ingredients_In_Meals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Ingredients">
+        <PropertyRef Name="IngredientId" />
+      </Principal>
+      <Dependent Role="Ingredients_In_Meals">
+        <PropertyRef Name="IngredientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Meals_Ingredients_In_Meals">
+    <End Role="Meals" Type="foodModel.Store.Meals" Multiplicity="1" />
+    <End Role="Ingredients_In_Meals" Type="foodModel.Store.Ingredients_In_Meals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Meals">
+        <PropertyRef Name="MealId" />
+      </Principal>
+      <Dependent Role="Ingredients_In_Meals">
+        <PropertyRef Name="MealId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_MealPlanList">
+    <End Role="Users" Type="foodModel.Store.Users" Multiplicity="1" />
+    <End Role="MealPlanList" Type="foodModel.Store.MealPlanLists" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="MealPlanList">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Users_Meals">
+    <End Role="Users" Type="foodModel.Store.Users" Multiplicity="0..1" />
+    <End Role="Meals" Type="foodModel.Store.Meals" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Meals">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="foodModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="foodEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Ingredients" EntityType="foodModel.Ingredient" />
+          <EntitySet Name="Ingredients_In_Meals" EntityType="foodModel.Ingredients_In_Meals" />
+          <EntitySet Name="MealPlanLists" EntityType="foodModel.MealPlanList" />
+          <EntitySet Name="Meals" EntityType="foodModel.Meal" />
+          <EntitySet Name="Users" EntityType="foodModel.User" />
+          <AssociationSet Name="FK_Ingredients_In_Meals_Ingredients" Association="foodModel.FK_Ingredients_In_Meals_Ingredients">
+            <End Role="Ingredients" EntitySet="Ingredients" />
+            <End Role="Ingredients_In_Meals" EntitySet="Ingredients_In_Meals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Meals_Ingredients_In_Meals" Association="foodModel.FK_Meals_Ingredients_In_Meals">
+            <End Role="Meals" EntitySet="Meals" />
+            <End Role="Ingredients_In_Meals" EntitySet="Ingredients_In_Meals" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_MealPlanList" Association="foodModel.FK_Users_MealPlanList">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="MealPlanList" EntitySet="MealPlanLists" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Users_Meals" Association="foodModel.FK_Users_Meals">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="Meals" EntitySet="Meals" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Ingredient">
+          <Key>
+            <PropertyRef Name="IngredientId" />
+          </Key>
+          <Property Name="IngredientId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Quantity_Nbr" Type="Decimal" Nullable="false" Precision="18" Scale="1" />
+          <Property Name="Quantity_Measurement" Type="String" Nullable="false" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="Calories" Type="Int16" />
+          <NavigationProperty Name="Ingredients_In_Meals" Relationship="foodModel.FK_Ingredients_In_Meals_Ingredients" FromRole="Ingredients" ToRole="Ingredients_In_Meals" />
+          <Property Type="String" Name="Category" MaxLength="30" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Ingredients_In_Meals">
+          <Key>
+            <PropertyRef Name="InstanceId" />
+          </Key>
+          <Property Name="InstanceId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="MealId" Type="Int32" Nullable="false" />
+          <Property Name="IngredientId" Type="Int32" Nullable="false" />
+          <Property Name="Quantity" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="Ingredient" Relationship="foodModel.FK_Ingredients_In_Meals_Ingredients" FromRole="Ingredients_In_Meals" ToRole="Ingredients" />
+          <NavigationProperty Name="Meal" Relationship="foodModel.FK_Meals_Ingredients_In_Meals" FromRole="Ingredients_In_Meals" ToRole="Meals" />
+        </EntityType>
+        <EntityType Name="MealPlanList">
+          <Key>
+            <PropertyRef Name="InstanceId" />
+          </Key>
+          <Property Name="InstanceId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="MealId" Type="Int32" Nullable="false" />
+          <Property Name="MealDate" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="User" Relationship="foodModel.FK_Users_MealPlanList" FromRole="MealPlanList" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Meal">
+          <Key>
+            <PropertyRef Name="MealId" />
+          </Key>
+          <Property Name="MealId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="256" Unicode="false" FixedLength="false" />
+          <Property Name="UserId" Type="Int32" />
+          <Property Name="Cuisine" Type="String" MaxLength="30" Unicode="false" FixedLength="false" />
+          <Property Name="Breakfast" Type="Boolean" Nullable="false" />
+          <Property Name="Lunch" Type="Boolean" Nullable="false" />
+          <Property Name="Dinner" Type="Boolean" Nullable="false" />
+          <Property Name="Snack" Type="Boolean" Nullable="false" />
+          <Property Name="Rating" Type="Byte" />
+          <NavigationProperty Name="Ingredients_In_Meals" Relationship="foodModel.FK_Meals_Ingredients_In_Meals" FromRole="Meals" ToRole="Ingredients_In_Meals" />
+          <NavigationProperty Name="User" Relationship="foodModel.FK_Users_Meals" FromRole="Meals" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="32" Unicode="true" FixedLength="false" />
+          <Property Name="LastLogin" Type="DateTime" Precision="3" />
+          <Property Name="DateJoined" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" Unicode="true" FixedLength="false" />
+          <Property Name="Email" Type="String" MaxLength="100" Unicode="true" FixedLength="false" />
+          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="MealPlanLists" Relationship="foodModel.FK_Users_MealPlanList" FromRole="Users" ToRole="MealPlanList" />
+          <NavigationProperty Name="Meals" Relationship="foodModel.FK_Users_Meals" FromRole="Users" ToRole="Meals" />
+        </EntityType>
+        <Association Name="FK_Ingredients_In_Meals_Ingredients">
+          <End Role="Ingredients" Type="foodModel.Ingredient" Multiplicity="1" />
+          <End Role="Ingredients_In_Meals" Type="foodModel.Ingredients_In_Meals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ingredients">
+              <PropertyRef Name="IngredientId" />
+            </Principal>
+            <Dependent Role="Ingredients_In_Meals">
+              <PropertyRef Name="IngredientId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Meals_Ingredients_In_Meals">
+          <End Role="Meals" Type="foodModel.Meal" Multiplicity="1" />
+          <End Role="Ingredients_In_Meals" Type="foodModel.Ingredients_In_Meals" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Meals">
+              <PropertyRef Name="MealId" />
+            </Principal>
+            <Dependent Role="Ingredients_In_Meals">
+              <PropertyRef Name="MealId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_MealPlanList">
+          <End Role="Users" Type="foodModel.User" Multiplicity="1" />
+          <End Role="MealPlanList" Type="foodModel.MealPlanList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="MealPlanList">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Users_Meals">
+          <End Role="Users" Type="foodModel.User" Multiplicity="0..1" />
+          <End Role="Meals" Type="foodModel.Meal" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Meals">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="foodModelStoreContainer" CdmEntityContainer="foodEntities">
+    <EntitySetMapping Name="Ingredients">
+      <EntityTypeMapping TypeName="IsTypeOf(foodModel.Ingredient)">
+        <MappingFragment StoreEntitySet="Ingredients">
+          <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Quantity_Nbr" ColumnName="Quantity_Nbr" />
+          <ScalarProperty Name="Quantity_Measurement" ColumnName="Quantity_Measurement" />
+          <ScalarProperty Name="Calories" ColumnName="Calories" />
+          <ScalarProperty Name="Category" ColumnName="Category" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Ingredients_In_Meals">
+      <EntityTypeMapping TypeName="IsTypeOf(foodModel.Ingredients_In_Meals)">
+        <MappingFragment StoreEntitySet="Ingredients_In_Meals">
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+          <ScalarProperty Name="MealId" ColumnName="MealId" />
+          <ScalarProperty Name="IngredientId" ColumnName="IngredientId" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MealPlanLists">
+      <EntityTypeMapping TypeName="IsTypeOf(foodModel.MealPlanList)">
+        <MappingFragment StoreEntitySet="MealPlanLists">
+          <ScalarProperty Name="InstanceId" ColumnName="InstanceId" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="MealId" ColumnName="MealId" />
+          <ScalarProperty Name="MealDate" ColumnName="MealDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Meals">
+      <EntityTypeMapping TypeName="IsTypeOf(foodModel.Meal)">
+        <MappingFragment StoreEntitySet="Meals">
+          <ScalarProperty Name="MealId" ColumnName="MealId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Cuisine" ColumnName="Cuisine" />
+          <ScalarProperty Name="Breakfast" ColumnName="Breakfast" />
+          <ScalarProperty Name="Lunch" ColumnName="Lunch" />
+          <ScalarProperty Name="Dinner" ColumnName="Dinner" />
+          <ScalarProperty Name="Snack" ColumnName="Snack" />
+          <ScalarProperty Name="Rating" ColumnName="Rating" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="IsTypeOf(foodModel.User)">
+        <MappingFragment StoreEntitySet="Users">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="LastLogin" ColumnName="LastLogin" />
+          <ScalarProperty Name="DateJoined" ColumnName="DateJoined" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="DOB" ColumnName="DOB" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/Default.aspx" title="Home" description="">
+    <siteMapNode roles="admin" url="" title="Admin tools"  description="">
+      <siteMapNode url="~/Admin/Users.aspx" title="Edit users"  description="" />
+      <siteMapNode url="~/Admin/Meals.aspx" title="Edit meals"  description="" />
+    </siteMapNode>
+    <siteMapNode roles="*" url="" title="Member tools">
+      <siteMapNode url="~/SignUp.aspx" title="Make new user" description="" />
+      <siteMapNode url="~/ForgotPassword.aspx" title="Forgot password" description="" />
+      
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

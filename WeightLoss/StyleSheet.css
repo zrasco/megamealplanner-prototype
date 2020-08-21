@@ -1,0 +1,216 @@
+body
+{
+    font-family: Calibri;
+    font-size: 12px;
+    color: #a7a7a7;
+    background-image: url('Images/bg.png');
+}
+
+a
+{
+    color: #45443f;
+    text-decoration: none;
+    font-weight: bold;
+    border-bottom: dotted 1px;
+}
+
+    a:hover
+    {
+        color: #e48053;
+    }
+
+h1
+{
+    font-family: Tahoma;
+    color: #5a5954;
+    border-bottom: solid 2px;
+    font-size: 24px;
+    margin: 0px;
+}
+
+.TopBar
+{
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.TopButton
+{
+    position: absolute;
+    top: 0px;
+    height: 95px;
+    width: 98px;
+}
+
+.TopButton_Home
+{
+    position: absolute;
+    left: 325px;
+    z-index: 2;
+    outline: none;
+}
+
+.TopButton_Meals
+{
+    position: absolute;
+    left: 475px;
+    outline: none;
+}
+
+.TopButton_News
+{
+    position: absolute;
+    left: 625px;
+    outline: none;
+}
+
+.TopButton_FAQ
+{
+    position: absolute;
+    left: 775px;
+    outline: none;
+}
+
+.TopButton_ContactUs
+{
+    position: absolute;
+    left: 925px;
+    outline: none;
+}
+
+.Logo
+{
+    position: absolute;
+    top: 25px;
+    left: 0px;
+    width: 367px;
+    height: 282px;
+    z-index: 1;
+    opacity: 1.0;
+    filter: alpha(opacity=100);
+}
+
+.Header
+{
+    position: absolute;
+    top: 10px;
+    left: 15%;
+    height: 20px;
+    width: 900px;
+}
+
+.BigBox
+{
+    position: absolute;
+    top: 140px;
+    left: 17%;
+    height: 600px;
+    width: 900px;
+    background-color: #5A5954;
+}
+
+.ImageSlideShow
+{
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    height: 220px;
+    width: 600px;
+    background-color: #363632;
+}
+
+.LoginArea
+{
+    position: absolute;
+    top: 10px;
+    left: 622px;
+    height: 220px;
+    width: 270px;
+    background-color: #363632;
+    color: #E98555;
+}
+
+.LeftPage
+{
+    position: absolute;
+    top: 235px;
+    left: 10px;
+    width: 400px;
+    height: 355px;
+    color: #424242;
+}
+
+.RightPage
+{
+    position: absolute;
+    top: 235px;
+    left: 420px;
+    width: 52.3%;
+    height: 355px;
+    color: #424242;
+}
+
+.MainPage
+{
+    position: absolute;
+    top: 235px;
+    left: 10px;
+    width: 98%;
+    height: 350px;
+    background-color: #a09e91;
+    color: #1c1c1a;
+}
+
+#a
+{
+    color: #45443f;
+}
+
+.VerticalBar
+{
+    position: absolute;
+    top: 235px;
+    left: 415px;
+    width: 1px;
+    display: inline;
+    border-left: 1px solid #686868;
+    color: #686868;
+    height: 360px;
+}
+
+.Rounded
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: 1px solid;
+}
+
+.RoundedImage
+{
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+.RoundedDataView
+{
+    border: 1px solid black;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.MealPlanMealText
+{
+    width: 80px;
+}
+
+.MealPlanDropDown
+{
+    margin: 2px;
+    margin-left: 4px;
+    width: 300px;
+}
